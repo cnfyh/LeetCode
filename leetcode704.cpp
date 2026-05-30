@@ -12,7 +12,7 @@ public:
     int search(std::vector<int>& nums, int target) {
         int left=0;
         int right=nums.size()-1;
-        while (left<=right) {
+        while (left<=right) { //--可以相等 eg： nums={5}，target=5 ，return 0
             int mid=left+(right-left)/2;
             if (target>nums[mid]) {
                 left=mid+1;
