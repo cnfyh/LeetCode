@@ -25,5 +25,17 @@ public:
         return slow;
     }
 };
+/*
+测试函数
+int main(){
+    Solution s;
+    std::vector<int> nums;
+    s.sortedSquares(nums);
+    for (int num : res) {
+        std::cout<<num<<' ';
+    }
+    return 0;
+}
 
+*/
 
