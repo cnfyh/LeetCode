@@ -15,9 +15,56 @@ struct ListNode {
 
 不允许修改 链表。
 */
+
+/* floyd判圈法 */
+class Solution2 {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        if (!head) {
+            return nullptr;
+        }
+        ListNode* slow=head;
+        ListNode* fast=head;
+        while (true) {
+            if (slow->next) {
+                slow=slow->next;
+            }else {
+                break;
+            }
+            if (fast->next && fast->next->next) {
+                fast=fast->next->next;
+            }else {
+                break;
+            }
+            if (slow==fast) {
+                while (slow!=head) {
+                    slow=slow->next;
+                    head=head->next;
+                }
+                return slow;
+            }
+        }
+        return nullptr;
+    }
+};
+/* floyd判圈法--优化版 */
 class Solution {
 public:
     ListNode *detectCycle(ListNode *head) {
-        
+        ListNode *slow = head, *fast = head;
+        //fast在前，只要fast没空，slow是一定安全
+        while (fast && fast->next) {
+            slow = slow->next;
+            fast = fast->next->next;
+            if (slow == fast) {
+                ListNode *ptr = head;
+                while (ptr != slow) {
+                    ptr = ptr->next;
+                    slow = slow->next;
+                }
+                return ptr;
+            }
+        }
+        return nullptr;
     }
 };
