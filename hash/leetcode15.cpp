@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <float.h>
 #include <functional>
 #include <utility>
 #include<vector>
@@ -47,16 +48,23 @@ public:
         };
         quicksort(nums,0,nums.size()-1);*/
         std::vector<std::vector<int>> res;
+        int size=nums.size();
         std::sort(nums.begin(),nums.end());
-        for (int i=0; i+2<nums.size(); i++) {
-            if (nums[i]>0) { //首位>0,由于排序过，后续不可能==0
-                break;
-            }
-            if (i>0 && nums[i]==nums[i-1]) { //首位去重
+        if (size<3) {
+            return res;
+        }
+        for (int i=0; i+2<size; i++) {
+            if (i>0 && nums[i]==nums[i-1]) { //首位去重---原因：当与前一个重复时，下一个找到的为前一个的子集关系
                 continue;
             }
+            if (nums[i]>0) { //首位>0
+                break;
+            }
+            if (nums[i]+nums[size-2]+nums[size-1]< 0) { //极大值< 0
+                continue;;
+            }
             int left=i+1;
-            int right=nums.size()-1;
+            int right=size-1;
             while (left<right) {
                 int sum=nums[i]+nums[left]+nums[right];
                 if (sum>0) {
